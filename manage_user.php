@@ -28,7 +28,7 @@ foreach($user->fetch_array() as $k =>$v){
 			<select name="type" id="type" class="custom-select">
 				<option value="1" <?php echo isset($meta['type']) && $meta['type'] == 1 ? 'selected': '' ?> disabled >Admin</option>
 				<option value="2" <?php echo isset($meta['type']) && $meta['type'] == 2 ? 'selected': '' ?>>Dean</option>
-				<option value="2" <?php echo isset($meta['type']) && $meta['type'] == 2 ? 'selected': '' ?>>HoD</option>
+				<option value="3" <?php echo isset($meta['type']) && $meta['type'] == 3 ? 'selected': '' ?>>HoD</option>
 
 			</select>
 		</div>

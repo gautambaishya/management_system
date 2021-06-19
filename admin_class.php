@@ -99,10 +99,26 @@ Class Action {
 						$data .= ", user_id = '".$_SESSION['login_id']."' ";
 						$data .= ", file_type = '".$file[1]."' ";
 						$data .= ", file_path = '".$fname."' ";
+
 						if(isset($is_public) && $is_public == 'on')
 						$data .= ", is_public = 1 ";
 						else
 						$data .= ", is_public = 0 ";
+
+						if(isset($is_admin) && $is_admin == 'on')
+						$data .= ", is_admin = 1 ";
+						else
+						$data .= ", is_admin = 0 ";
+
+						if(isset($is_dean) && $is_dean == 'on')
+						$data .= ", is_dean = 1 ";
+						else
+						$data .= ", is_dean = 0 ";
+
+						if(isset($is_hod) && $is_hod == 'on')
+						$data .= ", is_hod = 1 ";
+						else
+						$data .= ", is_hod = 0 ";
 
 						$save = $this->db->query("INSERT INTO files set ".$data);
 						if($save)
@@ -117,6 +133,22 @@ Class Action {
 						$data .= ", is_public = 1 ";
 						else
 						$data .= ", is_public = 0 ";
+
+						if(isset($is_admin) && $is_admin == 'on')
+						$data .= ", is_admin = 1 ";
+						else
+						$data .= ", is_admin = 0 ";
+
+						if(isset($is_dean) && $is_dean == 'on')
+						$data .= ", is_dean = 1 ";
+						else
+						$data .= ", is_dean = 0 ";
+
+						if(isset($is_hod) && $is_hod == 'on')
+						$data .= ", is_hod = 1 ";
+						else
+						$data .= ", is_hod = 0 ";
+						
 						$save = $this->db->query("UPDATE files set ".$data. " where id=".$id);
 						if($save)
 						return json_encode(array('status'=>1));

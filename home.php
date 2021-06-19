@@ -43,7 +43,17 @@ a.custom-menu-list span.icon{
 </nav>
 <div class="containe-fluid">
 	<?php include('db_connect.php') ;
-	$files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 order by date(f.date_updated) desc");
+	
+	$usr = $_SESSION['login_type'];
+	if($usr==1){
+		$files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 OR f.is_admin = 1 order by date(f.date_updated) desc");
+	}
+	elseif($usr==2){
+		$files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 OR f.is_dean = 1 order by date(f.date_updated) desc");
+	}
+	else{
+		$files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 OR f.is_hod = 1 order by date(f.date_updated) desc");
+	}
 
 	?>
 	<div class="row">
