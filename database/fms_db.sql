@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.1.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2021 at 06:20 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Jun 19, 2021 at 03:32 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -34,16 +35,20 @@ CREATE TABLE `files` (
   `folder_id` int(30) NOT NULL,
   `file_type` varchar(50) NOT NULL,
   `file_path` text NOT NULL,
-  `is_public` tinyint(1) DEFAULT '0',
-  `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `is_public` tinyint(1) DEFAULT 0,
+  `is_admin` tinyint(4) DEFAULT 0,
+  `is_dean` tinyint(4) DEFAULT 0,
+  `is_hod` tinyint(4) DEFAULT 0,
+  `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`id`, `name`, `description`, `user_id`, `folder_id`, `file_type`, `file_path`, `is_public`, `date_updated`) VALUES
-(1, 'My File', 'This is my file', 1, 11, 'txt', '1616126640_My File.txt', 1, '2021-03-19 11:04:13');
+INSERT INTO `files` (`id`, `name`, `description`, `user_id`, `folder_id`, `file_type`, `file_path`, `is_public`, `is_admin`, `is_dean`, `is_hod`, `date_updated`) VALUES
+(1, 'My File', 'This is my file', 1, 11, 'txt', '1616126640_My File.txt', 1, 0, 0, 0, '2021-03-19 11:04:13'),
+(5, 'AddrRes', '', 7, 0, 'pdf', '1624108500_AddrRes.pdf', 0, 0, 1, 0, '2021-06-19 18:45:16');
 
 -- --------------------------------------------------------
 
@@ -55,7 +60,7 @@ CREATE TABLE `folders` (
   `id` int(30) NOT NULL,
   `user_id` int(30) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `parent_id` int(30) NOT NULL DEFAULT '0'
+  `parent_id` int(30) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -77,7 +82,7 @@ CREATE TABLE `users` (
   `name` varchar(200) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT '2' COMMENT '1+admin , 2 = users'
+  `type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1=Admin, 2=Dean, 3=Hod'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -86,7 +91,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `type`) VALUES
 (1, 'Administrator', 'admin', 'admin', 1),
-(3, 'Mark Jason ', 'user', 'user', 2);
+(6, 'dean', 'dean', 'dean', 2),
+(7, 'hod', 'hod', 'hod', 3);
 
 --
 -- Indexes for dumped tables
@@ -118,17 +124,21 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `folders`
 --
 ALTER TABLE `folders`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
